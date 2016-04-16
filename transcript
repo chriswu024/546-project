@@ -1,0 +1,176 @@
+# //  ModelSim SE 10.3b May 29 2014 Linux 3.10.0-327.13.1.el7.x86_64
+# //
+# //  Copyright 1991-2014 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //
+do compile.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# ** Warning: (vlib-34) Library already exists at "mti_lib".
+# Model Technology ModelSim SE vlog 10.3b Compiler 2014.05 May 29 2014
+# Start time: 15:18:46 on Apr 05,2016
+# vlog -reportprogress 300 mc_decoder.v 
+# -- Compiling module mc_decoder
+# 
+# Top level modules:
+# 	mc_decoder
+# End time: 15:18:47 on Apr 05,2016, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE vlog 10.3b Compiler 2014.05 May 29 2014
+# Start time: 15:18:48 on Apr 05,2016
+# vlog -reportprogress 300 -sv instructions.sv 
+# -- Compiling package instruction
+# 
+# Top level modules:
+# 	--none--
+# End time: 15:18:48 on Apr 05,2016, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE vlog 10.3b Compiler 2014.05 May 29 2014
+# Start time: 15:18:48 on Apr 05,2016
+# vlog -reportprogress 300 -sv definition.svh 
+# -- Compiling package virtual_interface
+# 
+# Top level modules:
+# 	--none--
+# End time: 15:18:48 on Apr 05,2016, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE vlog 10.3b Compiler 2014.05 May 29 2014
+# Start time: 15:18:48 on Apr 05,2016
+# vlog -reportprogress 300 -sv interface.sv 
+# -- Compiling interface cpu_ifc
+# -- Compiling interface fifo_ifc
+# -- Compiling package interface_sv_unit
+# -- Compiling interface fifo_ifc
+# 
+# Top level modules:
+# 	--none--
+# End time: 15:18:48 on Apr 05,2016, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE vlog 10.3b Compiler 2014.05 May 29 2014
+# Start time: 15:18:48 on Apr 05,2016
+# vlog -reportprogress 300 -sv generator.sv 
+# 
+# Top level modules:
+# 	--none--
+# End time: 15:18:48 on Apr 05,2016, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE vlog 10.3b Compiler 2014.05 May 29 2014
+# Start time: 15:18:48 on Apr 05,2016
+# vlog -reportprogress 300 -sv driver.sv 
+# 
+# Top level modules:
+# 	--none--
+# End time: 15:18:48 on Apr 05,2016, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE vlog 10.3b Compiler 2014.05 May 29 2014
+# Start time: 15:18:48 on Apr 05,2016
+# vlog -reportprogress 300 -sv scoreboard.sv 
+# 
+# Top level modules:
+# 	--none--
+# End time: 15:18:48 on Apr 05,2016, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE vlog 10.3b Compiler 2014.05 May 29 2014
+# Start time: 15:18:48 on Apr 05,2016
+# vlog -reportprogress 300 -sv monitor_new.sv 
+# 
+# Top level modules:
+# 	--none--
+# End time: 15:18:48 on Apr 05,2016, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE vlog 10.3b Compiler 2014.05 May 29 2014
+# Start time: 15:18:48 on Apr 05,2016
+# vlog -reportprogress 300 -sv environment_new.sv 
+# 
+# Top level modules:
+# 	--none--
+# End time: 15:18:48 on Apr 05,2016, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE vlog 10.3b Compiler 2014.05 May 29 2014
+# Start time: 15:18:48 on Apr 05,2016
+# vlog -reportprogress 300 -sv testbench.sv 
+# -- Compiling package testbench_sv_unit
+# -- Importing package instruction
+# -- Importing package virtual_interface
+# -- Compiling program test
+# 
+# Top level modules:
+# 	test
+# End time: 15:18:48 on Apr 05,2016, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE vlog 10.3b Compiler 2014.05 May 29 2014
+# Start time: 15:18:48 on Apr 05,2016
+# vlog -reportprogress 300 -sv top.sv 
+# -- Compiling module top
+# 
+# Top level modules:
+# 	top
+# End time: 15:18:48 on Apr 05,2016, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim 
+# Start time: 15:18:49 on Apr 05,2016
+# ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
+# Loading sv_std.std
+# Loading mti_lib.top
+# Loading mti_lib.interface_sv_unit
+# Loading mti_lib.fifo_ifc
+# Loading mti_lib.cpu_ifc
+# Loading mti_lib.mc_decoder
+# Loading mti_lib.virtual_interface
+# Loading mti_lib.instruction
+# Loading mti_lib.testbench_sv_unit
+# Loading mti_lib.test
+# ** Warning: (vsim-8441) scoreboard.sv(96): Clocking block output vSys2Dec.cb.sys__mc__dram_req is not legal in this
+# or another expression.
+#         Region: /testbench_sv_unit
+# ** Warning: (vsim-3017) top.sv(25): [TFMPC] - Too few port connections. Expected 13, found 12.
+#         Region: /top/mc_decoder
+run -all
+# @0: Gen: CPU_Instr id: 5 address:15951f15, wr_data:9815187341189bc37e92a88c797532913a8d68868e0542e220af25c30d6ff6293b8f143571f61cf0, rdwr:1, req:1, read:1
+# @0: Drv: CPU_Instr id: 5 address:15951f15, wr_data:9815187341189bc37e92a88c797532913a8d68868e0542e220af25c30d6ff6293b8f143571f61cf0, rdwr:1, req:1, read:1
+# Sending instruction: 
+# @10: Scb save: CPU_Instr id: 5 address:15951f15, wr_data:9815187341189bc37e92a88c797532913a8d68868e0542e220af25c30d6ff6293b8f143571f61cf0, rdwr:1, req:1, read:1
+# @10: Gen: CPU_Instr id: 8 address:1b809972, wr_data:3ab0f6baecc5299e1535c7005382d35525b414fac9f25c62027d61de38a82a559702311e6882643b, rdwr:0, req:1, read:1
+# @10: Drv: CPU_Instr id: 8 address:1b809972, wr_data:3ab0f6baecc5299e1535c7005382d35525b414fac9f25c62027d61de38a82a559702311e6882643b, rdwr:0, req:1, read:1
+# Sending instruction: 
+# @20: Writting to fifo: FIFO_Data id: 7 address:15951f15, wr_data:9815187341189bc37e92a88c797532913a8d68868e0542e220af25c30d6ff6293b8f143571f61cf0, rdwr:1
+# @20: Scb save: CPU_Instr id: 8 address:1b809972, wr_data:3ab0f6baecc5299e1535c7005382d35525b414fac9f25c62027d61de38a82a559702311e6882643b, rdwr:0, req:1, read:1
+# @20: Gen: CPU_Instr id: 10 address:111e5ee3, wr_data:1d317c75ec0bb2f98661914bad9ec17540c4a473e7728dbcd1c9ac996282c148ba5d212a8c9baab6, rdwr:0, req:1, read:1
+# @20: Drv: CPU_Instr id: 10 address:111e5ee3, wr_data:1d317c75ec0bb2f98661914bad9ec17540c4a473e7728dbcd1c9ac996282c148ba5d212a8c9baab6, rdwr:0, req:1, read:1
+# Sending instruction: 
+# @30: Writting to fifo: FIFO_Data id: 9 address:1b809972, wr_data:3ab0f6baecc5299e1535c7005382d35525b414fac9f25c62027d61de38a82a559702311e6882643b, rdwr:0
+# @30: Scb save: CPU_Instr id: 10 address:111e5ee3, wr_data:1d317c75ec0bb2f98661914bad9ec17540c4a473e7728dbcd1c9ac996282c148ba5d212a8c9baab6, rdwr:0, req:1, read:1
+# @30: Gen: CPU_Instr id: 12 address:921308, wr_data:201de4dde2edb68aa6a144b38003bae9358499c97f778e1e62f866a2811668230116c02a57883f69, rdwr:0, req:1, read:1
+# @30: Drv: CPU_Instr id: 12 address:921308, wr_data:201de4dde2edb68aa6a144b38003bae9358499c97f778e1e62f866a2811668230116c02a57883f69, rdwr:0, req:1, read:1
+# Sending instruction: 
+# @40: Mon: FIFO_Instr id: 6 address:15951f15, wr_data:9815187341189bc37e92a88c797532913a8d68868e0542e220af25c30d6ff6293b8f143571f61cf0, rdwr:1, empty:0, almost_full:0
+# @40: Scb check: FIFO_Instr id: 6 address:15951f15, wr_data:9815187341189bc37e92a88c797532913a8d68868e0542e220af25c30d6ff6293b8f143571f61cf0, rdwr:1, empty:0, almost_full:0
+# @40: Match FIFO read data
+# @40: Writting to fifo: FIFO_Data id: 11 address:111e5ee3, wr_data:1d317c75ec0bb2f98661914bad9ec17540c4a473e7728dbcd1c9ac996282c148ba5d212a8c9baab6, rdwr:0
+# @40: Scb save: CPU_Instr id: 12 address:921308, wr_data:201de4dde2edb68aa6a144b38003bae9358499c97f778e1e62f866a2811668230116c02a57883f69, rdwr:0, req:1, read:1
+# @40: Gen: CPU_Instr id: 15 address:5f5d231, wr_data:9a3d3fae0b98acb43aa2961182328d9acd3339553abb0e900b12a02f06b7ebe030c4827bbee2cb18, rdwr:0, req:1, read:1
+# @40: Drv: CPU_Instr id: 15 address:5f5d231, wr_data:9a3d3fae0b98acb43aa2961182328d9acd3339553abb0e900b12a02f06b7ebe030c4827bbee2cb18, rdwr:0, req:1, read:1
+# Sending instruction: 
+# @50: Mon: FIFO_Instr id: 13 address:1b809972, wr_data:3ab0f6baecc5299e1535c7005382d35525b414fac9f25c62027d61de38a82a559702311e6882643b, rdwr:0, empty:0, almost_full:0
+# @50: Scb check: FIFO_Instr id: 13 address:1b809972, wr_data:3ab0f6baecc5299e1535c7005382d35525b414fac9f25c62027d61de38a82a559702311e6882643b, rdwr:0, empty:0, almost_full:0
+# @50: Match FIFO read data
+# @50: Writting to fifo: FIFO_Data id: 14 address:921308, wr_data:201de4dde2edb68aa6a144b38003bae9358499c97f778e1e62f866a2811668230116c02a57883f69, rdwr:0
+# @50: Scb save: CPU_Instr id: 15 address:5f5d231, wr_data:9a3d3fae0b98acb43aa2961182328d9acd3339553abb0e900b12a02f06b7ebe030c4827bbee2cb18, rdwr:0, req:1, read:1
+# @60: Mon: FIFO_Instr id: 16 address:111e5ee3, wr_data:1d317c75ec0bb2f98661914bad9ec17540c4a473e7728dbcd1c9ac996282c148ba5d212a8c9baab6, rdwr:0, empty:0, almost_full:0
+# @60: Scb check: FIFO_Instr id: 16 address:111e5ee3, wr_data:1d317c75ec0bb2f98661914bad9ec17540c4a473e7728dbcd1c9ac996282c148ba5d212a8c9baab6, rdwr:0, empty:0, almost_full:0
+# @60: Match FIFO read data
+# @60: Writting to fifo: FIFO_Data id: 17 address:5f5d231, wr_data:9a3d3fae0b98acb43aa2961182328d9acd3339553abb0e900b12a02f06b7ebe030c4827bbee2cb18, rdwr:0
+# @70: Mon: FIFO_Instr id: 18 address:921308, wr_data:201de4dde2edb68aa6a144b38003bae9358499c97f778e1e62f866a2811668230116c02a57883f69, rdwr:0, empty:0, almost_full:0
+# @70: Scb check: FIFO_Instr id: 18 address:921308, wr_data:201de4dde2edb68aa6a144b38003bae9358499c97f778e1e62f866a2811668230116c02a57883f69, rdwr:0, empty:0, almost_full:0
+# @70: Match FIFO read data
+# @80: Mon: FIFO_Instr id: 19 address:5f5d231, wr_data:9a3d3fae0b98acb43aa2961182328d9acd3339553abb0e900b12a02f06b7ebe030c4827bbee2cb18, rdwr:0, empty:0, almost_full:0
+# @80: Scb check: FIFO_Instr id: 19 address:5f5d231, wr_data:9a3d3fae0b98acb43aa2961182328d9acd3339553abb0e900b12a02f06b7ebe030c4827bbee2cb18, rdwr:0, empty:0, almost_full:0
+# @80: Match FIFO read data
+# @200: expected data number:5, actual data number:5
+# 1
+# Simulation stop requested.
+# End time: 15:19:08 on Apr 05,2016, Elapsed time: 0:00:19
+# Errors: 0, Warnings: 3
