@@ -1,0 +1,36 @@
+ECE 546 Final Report (Group3)
+10T Based Low Power Synchronous 128 bit SRAM
+Zhe Yuan, Jue Wang, Yuejian Wu
+
+Introduction
+With the development of CMOS technology, the memory has become the main power contributor in the SOC system. SRAM which is the most used in on-chip memory for its low activity now consumes a lot of standby power with the scaling feature length. This project explores the design a a 128 bit (32x4) synchronous SRAM with a focus on delay, area and energy. The main approach in reducing energy is by using a 10 transistor memory bitcell instead of the tranditional 6T bitcell in order to reduce leakge power. The 10T bitcell also isolates the read port from the cross-coupled inverters. This prevents accidental writing during a read operation, thus enhancing read static noise margins. EDA is the oprimization metric. A LVS and DRC clean bit cell array are the other correctness of the design.
+
+Design Description
+This project aims at developing a 128 bit SRAM in 15 nm process using finfet. The bitcell array contains 32 words(4 bits each), and they are seperated into 16 rows. Each row contains 2 words. This approach is chosen to avoid a very tall layout which would violate the {0.5,2} aspect ratio requirement. Therefore, a 16x8 layout is chosen.
+
+BITCELL
+The 10 transistors bitcell is based on the design in [1]. It uses a separate read port to prevent read upsets in bitcell. The read word line and write word line are separated. Besides, there is also a single read bit line with only purpose to read the data from the bitcell. Output of cross-coupled inverters are transferred into the read bit line via a inverter and a pass transistors, both are controlled by the read word line. Bitline biline bar and read bit line are precharged high when clock is low. In the initial design, bitline and bitline bar are not precharged. However, after running simulation on the actual layout, we found out that the data stored in the bitcell will be discharged through the capacitances. Thus, bitline precharge is added to prevent this.
+
+COLUMN DECODER
+The column decoder is used to select a single word out of two based on the address line A<4>. Besides, we also use WENB signal to act as the selecting signal of the writing operation or read operation. A buffer was added at the input of the writing data to preventing input data changing before selecting signal changes. Besides, single inverter was also added because the output of tri-state buffer is inverted. 
+
+ROW DECODER
+The row decoder selects a single row of memory out of 16. The correct wordline is raised high based on the input vector. A<3:0> is used to select the correct row. In our design, dynamic NAND gate was used to implement this function. Besides, since our bitcell has seperate word line and read word line, each output is transformed into write word line and read word line based on WENB signal. 
+
+FLIP FLOP
+In our design, negative edge triggerd master slaved static flip flop was used. Four flip flops are used to store and hold output values for read operations. The input to the flip flops are read output selected by the MUX. The read instruction is processed at the postive edge of the clock cycle, and the result is then stored in the flip flop at the negative edge. The data is held steady for the next clock period.
+
+CLOCK
+The clock signal is used to drive the bitline condition, the output flip flops.
+
+RESULT
+The SRAM operates at 0.8V with a clock period of 140 ps. The layout also pass the DRC and LVS check. The energy consumed is XXX. The SNM result is shown in figure XX, and the output of DRC and LVS is provided in the appendex. Design statistics are presented in Table 1.
+
+CONCLUSION
+This project presents a SRAM design employing a robust 10T bitcell. Given the chance to redesign the project, we would like to add some pipelines to reduce the clock cycle, which would also reduces the power in a great amount. Besides, the transmission gate would be chosen over tri-state buffer since it consumes less energy.
+
+REFERENCES
+1.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+2.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+3.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+4.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
