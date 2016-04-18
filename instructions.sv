@@ -77,6 +77,8 @@ endclass : FIFO_Instr
 ///////////////////////////////////////////////////////////////////
 class Output_FIFO_Data extends BaseTr;
     // Physical fields
+    logic            dec__bnc__reset   ;
+    logic            dec__bnc__clear   ;
     logic    [`DEC_CONT_TO_BANK_CONT_ROW_ADDR_RANGE  ]        dec__bnc__page_addr   ;
     logic    [`DEC_CONT_TO_BANK_CONT_COL_ADDR_RANGE  ]        dec__bnc__col_addr    ;
     logic                                                     dec__bnc__rdwr        ;

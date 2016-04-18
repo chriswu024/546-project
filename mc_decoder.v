@@ -21,15 +21,12 @@
 *********************************************************************************************/
 
 
-`include "/afs/eos.ncsu.edu/lockers/research/ece/paulf/DiRAMController/MemoryController/HDL/common/common.vh"
-`include "/afs/eos.ncsu.edu/lockers/research/ece/paulf/DiRAMController/MemoryController/HDL/common/mc.vh"
-`include "/afs/eos.ncsu.edu/lockers/research/ece/paulf/DiRAMController/MemoryController/HDL/common/mc_decoder.vh"
+`timescale 1ns/10ps
+`include "common.vh"
+`include "mc.vh"
+`include "mc_decoder.vh"
 
 module mc_decoder (
-                
-                // General interface
-                clk                        ,
-                reset                      ,
                 
                 // Request interface from system to Decoder
                 sys__mc__dram_req                ,
@@ -38,25 +35,20 @@ module mc_decoder (
                 sys__mc__dram_wr_data            ,
                 mc__sys__dram_busy               ,
                 
-/*
-                // FOR DEBUG OF THE TESTBENCH, TEST THE SIGNALS ONLY FOR THE
-                // INPUT FIFOS
-                input_fifo_read_rdwr              ,
-                input_fifo_read_addr              ,
-                input_fifo_read_wr_data           ,
-		input_fifo_empty                  , 
-                input_fifo_read                   ,
-*/
-                
                 // Response interface from Decoder to system
-                mc__sys__dram_rd_data                 ,
+                mc__sys__dram_rd_data            ,
                 mc__sys__dram_rd_done            ,
-/*
+
                 // interface from scheduler to Decoder
                 sch__dec__rd_data                ,
-*/
+
                 // interface from Decoder to Bank Controller(s)
                 `include "/afs/eos.ncsu.edu/lockers/research/ece/paulf/DiRAMController/MemoryController/HDL/common/mc_decoder_bnc_ports.vh"
+                         
+                // General interface
+                clk                        ,
+                reset                     
+                
   );
 
 
@@ -73,28 +65,19 @@ module mc_decoder (
   input    [`DEC_CONT_SYSTEM_INTF_ADDR_RANGE       ]      sys__mc__dram_addr        ;
   input    [`DEC_CONT_SYSTEM_INTF_WRITE_DATA_RANGE ]      sys__mc__dram_wr_data     ;
   output                                                  mc__sys__dram_busy        ;
- /*                       
-  // FOR DEBUG OF THE TESTBENCH, TEST THE SIGNALS ONLY FOR THE
-  // INPUT FIFOS
-  output                                                  input_fifo_read_rdwr      ;
-  output    [`DEC_CONT_SYSTEM_INTF_ADDR_RANGE       ]     input_fifo_read_addr      ;
-  output    [`DEC_CONT_SYSTEM_INTF_WRITE_DATA_RANGE ]     input_fifo_read_wr_data   ;
-  output                                                  input_fifo_empty          ;
-  input                                                   input_fifo_read           ;
-*/
-
+                        
   // interface from Decoder to system
   output  [`DEC_CONT_SYSTEM_INTF_READ_DATA_RANGE]         mc__sys__dram_rd_data     ;
   output                                                  mc__sys__dram_rd_done     ;
 
-/*
+
   // interface from Scheduler to Decoder
   input    [`DEC_CONT_FROM_SCH_DATA_RANGE ]               sch__dec__rd_data  ;
-*/
+
 
   // interface from Decoder to Bank Controller(s)
   `include "/afs/eos.ncsu.edu/lockers/research/ece/paulf/DiRAMController/MemoryController/HDL/common/mc_decoder_bnc_ports_declaration.vh"
-*/
+
 
   //-------------------------------------------------------------------------------------------
   // Wires and Registers
@@ -104,16 +87,10 @@ module mc_decoder (
   reg                                                  mc__sys__dram_rd_done     ;
   // reg for interface from system to Decoder, request interface
   reg                                                  mc__sys__dram_busy        ;
-/*
-  // reg for interface for DEBUGGING, output of input FIFO 
-  wire                                                  input_fifo_read_rdwr              ;
-  wire    [`DEC_CONT_SYSTEM_INTF_ADDR_RANGE       ]     input_fifo_read_addr              ;
-  wire    [`DEC_CONT_SYSTEM_INTF_WRITE_DATA_RANGE ]     input_fifo_read_wr_data           ;
-  wire                                                  input_fifo_empty                  ;
-*/
+
 
   `include "/afs/eos.ncsu.edu/lockers/research/ece/paulf/DiRAMController/MemoryController/HDL/common/mc_decoder_bnc_ports_wires.vh"
-*/
+
 
   //-------------------------------------------------------------------------------------------
   //------------------------------------------
@@ -138,16 +115,9 @@ module mc_decoder (
   always @(posedge clk)
     mc__sys__dram_busy    <= from_system_fifo[0].fifo_almost_full ;
 
-//  wire sys_fifo_read;
-  assign from_system_fifo[0].fifo_read = ~from_system_fifo[0].fifo_empty ; // read comes from testbench
- // assign from_system_fifo[0].fifo_read = sys_fifo_read ; // read comes from sys2bank controller fsm
-/////////////////////////////////////////////////////////////////////
-// connect fifo output to interface
-/////////////////////////////////////////////////////////////////////
-  assign input_fifo_read_rdwr = from_system_fifo[0].fifo_read_rdwr;
-  assign input_fifo_read_addr = from_system_fifo[0].fifo_read_addr;
-  assign input_fifo_read_wr_data = from_system_fifo[0].fifo_read_wr_data;
-  assign input_fifo_empty = from_system_fifo[0].fifo_empty;
+  wire sys_fifo_read;
+  assign from_system_fifo[0].fifo_read = sys_fifo_read ; // read comes from sys2bank controller fsm
+
   //-------------------------------------------------------------------------------------------
   //------------------------------------------
   // Transactions to bank Controller
@@ -256,13 +226,16 @@ module mc_decoder (
   always @(posedge clk)
     begin
   
-      sys2bankTransferCount   <= ( reset                                                                                                                         )  ? 'd0                     :
-                                 (  (dec_sys2bank_cntl_state_next == `DEC_CONT_SYS2BANK_CNTL_WAIT          ) 
+      sys2bankTransferCount   <= ( reset                                                                   )          ? 'd0                     :
+                                 (  (dec_sys2bank_cntl_state_next == `DEC_CONT_SYS2BANK_CNTL_WAIT          )
                                  || (dec_sys2bank_cntl_state_next == `DEC_CONT_SYS2BANK_CNTL_SEND_EOM      ) 
-                                 || (dec_sys2bank_cntl_state_next == `DEC_CONT_SYS2BANK_CNTL_SEND_SOM_EOM  )                                                          )  ? 'd0                     :
+                                 || (dec_sys2bank_cntl_state_next == `DEC_CONT_SYS2BANK_CNTL_SEND_SOM_EOM  )       )  ? 'd0                     :
+/*
                                  ((dec_sys2bank_cntl_state == `DEC_CONT_SYS2BANK_CNTL_SEND_SOM) && destinationBankFifoReady && ~from_system_fifo[0].fifo_empty   )  ? sys2bankTransferCount+1 :
                                  ((dec_sys2bank_cntl_state == `DEC_CONT_SYS2BANK_CNTL_SEND_MOM) && destinationBankFifoReady && ~from_system_fifo[0].fifo_empty   )  ? sys2bankTransferCount+1 :
-                                                                                                                                                                      sys2bankTransferCount   ;
+*/
+                                 ( sys_fifo_read                                                          )           ? sys2bankTransferCount+1 :
+                                                                                                                        sys2bankTransferCount   ;
 
       // captured bank address on first cycle
       sys_bank_addr_captured   <= ( reset                                                           )  ? 'd0                     :
@@ -293,8 +266,9 @@ module mc_decoder (
                                      (dec_sys2bank_cntl_state == `DEC_CONT_SYS2BANK_CNTL_SEND_SOM_EOM ) ? `MC_STD_INTF_CNTL_SOM_EOM  :
                                                                                                           `MC_STD_INTF_CNTL_EOM      ;
 
-  assign selectedBank              = (dec_sys2bank_cntl_state == `DEC_CONT_SYS2BANK_CNTL_SEND_SOM ) ? sys_bank_addr          :  // select bank when data first registered from fifo
-                                                                                                      sys_bank_addr_captured ;  // after first fifo output, use captured address to select target bank fifo
+  assign selectedBank              = (dec_sys2bank_cntl_state == `DEC_CONT_SYS2BANK_CNTL_SEND_SOM     ) ? sys_bank_addr          :  // select bank when data first registered from fifo
+                                     (dec_sys2bank_cntl_state == `DEC_CONT_SYS2BANK_CNTL_SEND_SOM_EOM ) ? sys_bank_addr          :  // select bank when data first registered from fifo
+                                                                                                          sys_bank_addr_captured ;  // after first fifo output, use captured address to select target bank fifo
                                                                                                     
 
   //-------------------------------------------------------------------------------------------
@@ -317,7 +291,7 @@ module mc_decoder (
   // Port outputs to Bank Controller
   // 
   `include "/afs/eos.ncsu.edu/lockers/research/ece/paulf/DiRAMController/MemoryController/HDL/common/mc_decoder_bank_output_fifo_io_connections.vh"
-*/
+
 
 endmodule
 

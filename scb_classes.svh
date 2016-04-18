@@ -52,6 +52,7 @@ class Decoder;
     logic sys2BFCntl;
     logic sys_bank_addr;
     logic sys_bank_addr_captured;
+    logic selectedbank;
     int   count;
     logic [`DEC_CONT_SYS2BANK_CNTL_STATE_RANGE ] cntl_state     ; // state flop
     logic [`DEC_CONT_SYS2BANK_CNTL_STATE_RANGE ] cntl_state_next;
@@ -65,7 +66,7 @@ class Decoder;
     
     extern function new();
     extern function void output_fifo_wr_generation();
-    extern function void output_fifo_ready_generation(input int selectedbank);
+    extern function void output_fifo_ready_generation();
     extern function void Count_generation();
     extern function void Input_fifo_read_generation();
     extern function void Selectedbank_generation();
@@ -111,7 +112,7 @@ endfunction:output_fifo_wr_generation
 // generate the destination bank fifo ready signal
 // which means that the selected bank fifo is not almost full
 //--------------------------------------------------------------
-function Decoder::output_fifo_ready_generation(input int selectedbank);
+function Decoder::output_fifo_ready_generation();
     output_fifo[selectedbank].capacity_check();
     if (output_fifo[selectedbank].fifo_almost_full == 0)
 	output_fifo_ready = 1;
@@ -281,6 +282,17 @@ function void Decoder::fsm();
     endcase
 endfunction:fsm
 
+//--------------------------------------------------------------
+// pass data from input fifo to corresponding output fifo
+//--------------------------------------------------------------
+function void Decoder::pass_data();
+    output_fifo[selectedbank].OFD.dec__bnc__reset = reset;    
+    output_fifo[selectedbank].OFD.dec__bnc__clear = 0;    
+    output_fifo[selectedbank].OFD.dec__bnc__cntl = sys2BFCntl;    
+    output_fifo[selectedbank].OFD.dec__bnc__rdwr = IFD.dec__bnc__sys__mc__fifo_rdwr;   
+    output_fifo[selectedbank].OFD.page_addr = IFD.sys__mc__fifo_addr[23:12];    
+    output_fifo[selectedbank].OFD.col_addr = IFD.sys__mc__fifo_addr[11:7];    
+    output_fifo[selectedbank].OFD.wr_data = IFD.sys__mc__fifo_wr_data;    
 //--------------------------------------------------------------
 // actual decoding process 
 //--------------------------------------------------------------
